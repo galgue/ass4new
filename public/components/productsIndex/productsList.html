@@ -1,0 +1,61 @@
+<!-- ItemsList Content -->
+<div class="row" ng-controller="productsListCtrl as productsListCtrl">
+
+    <!-- products list-->
+    <div class="col-md-9" style="padding-left:30px">
+        <div ng-if="productsListCtrl.catDisplay == 'home'">
+           <div class="row">
+                <h1>Top 5 Items</h1>
+                <select ng-model="sortorder">
+                    <option value="+price">price (from small to big)</option>
+                    <option value="-price">price (from big to small)</option>
+                    <option value="+name">product name (a to Z)</option>
+                    <option value="-name">product name (Z to a)</option>
+                </select>
+               <br/>
+               <div>
+                <div ng-repeat="p in productsListCtrl.productsService.topSellerProducts | orderBy : sortorder" class="col-md-3">
+                    <h5>{{p.name}}</h5>
+                    <div class="square">
+                        <img src={{p.image}}>
+                    </div>                    <br/>
+                    <h3>price: {{p.price | number}}</h3>
+                    <br/>
+                    <select ng-init="quantity = 1" ng-model="quantity" ng-options="values for values in [1,2,3,4,5]">
+                    </select>
+                    <br/>
+                    <button ng-disabled="!productsListCtrl.userService.isLoggedIn" ng-click="productsListCtrl.addToCart(p, quantity)">add to cart</button>
+                 </div>
+                </div>
+            </div>
+            <br/>
+            
+            <!-- new items from the last month. shown only to loggedin users -->
+            <div class="row" ng-show="productsListCtrl.userService.isLoggedIn">
+                <!-- New items -->
+                <h1>New Items</h1>
+                <select ng-model="sortorder2">
+                    <option value="+price">price (small -> big)</option>
+                    <option value="-price">price (big -> small)</option>
+                    <option value="+name">product name (small -> big)</option>
+                    <option value="-name">product name (big -> small)</option>
+                </select>
+                <br/>
+                <div ng-repeat="p in productsListCtrl.productsService.newItems | orderBy : sortorder2" class="col-md-3">
+                    <h5>{{p.name}}</h5>
+                    <div class="square">
+                        <img src={{p.image}}>
+                    </div>                    <br/>
+                    <h3>price: {{p.price | number}}</h3>
+                    <br/>
+                    <select ng-init="quantity = 1" ng-model="quantity" ng-options="values for values in [1,2,3,4,5]">
+                    </select>
+                    <br/>
+                    <button ng-disabled="!productsListCtrl.userService.isLoggedIn" ng-click="productsListCtrl.addToCart(p, quantity)">add to cart</button>
+                </div>
+            </div>
+        </div> <!-- home category -->
+        
+
+        </div> <!-- products list right side of the screen-->
+</div> <!-- controller div -->

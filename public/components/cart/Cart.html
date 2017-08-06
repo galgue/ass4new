@@ -1,0 +1,44 @@
+ <!-- Cart Content -->
+<div ng-controller="cartCtrl as cartCtrl">
+
+    <table id="cart_tbl" class="table" ng-show="cartCtrl.cartService.getCartLength() > 0">
+        <thead>
+            <tr>
+                <th>name</th>
+                <th></th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th>Remove</th>
+            </tr>
+        </thead>
+        <tr ng-repeat="(key, value) in mainCtrl.cartService.cart">
+            <td>{{value.product.name}}</td>
+            <td><img src={{value.product.image}} class="cartProductImage"></td>
+            <td>{{value.product.price | customCurrency }}</td>
+            <td>{{value.quantity}}</td>
+            <td>{{value.quantity * value.product.price}}</td>
+            <td>
+                <button ng-click="cartCtrl.cartService.deleteFromCart(key)">
+                    delete
+                </button>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+                sum: {{ cartCtrl.cartService.sumMoney }}
+            </td>
+        </tr>
+
+    </table>
+
+    <h1 ng-show="cartCtrl.cartService.getCartLength() < 1">
+        Cart is Empty
+    </h1>
+    <button ng-click="cartCtrl.purchaseCart()" ng-show="cartCtrl.cartService.getCartLength() > 0">check out</button>
+
+</div>

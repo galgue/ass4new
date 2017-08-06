@@ -1,0 +1,31 @@
+<div class="row" ng-controller="productsListCtrl as productsListCtrl">
+    <div class="col-md-3" style="border: black solid 1px" > <!-- categories menu -->
+        <div ng-repeat="cat in productsListCtrl.productsService.categories">
+            <a href ng-click="productsListCtrl.changeDisplayCategory(cat.name, cat.Id)">
+                <h3>{{cat.name}}</h3>
+            </a>
+        </div>
+    </div>
+
+    <!-- Products in category -->
+    <div ng-if="productsListCtrl.catDisplay != 'home' ">
+        <div class="row">
+            <h2>category '{{productsListCtrl.catDisplay}}' items:</h2>
+            <div ng-repeat="p in productsListCtrl.productsInDisplay" class="col-md-3">
+                <h5>{{p.name}}</h5>
+                <div class="square">
+                    <img src={{p.image}}>
+                </div>                    <br/>
+                <h3>price: {{p.price}}</h3>
+                <br/>
+                <select ng-init="quantity = 1" ng-model="quantity" ng-options="values for values in [1,2,3,4,5]">
+                </select>
+                <br/>
+                <button ng-disabled="!productsListCtrl.userService.isLoggedIn" ng-click="productsListCtrl.addToCart(p, quantity)">add to cart</button>
+            </div>
+
+        </div> <!-- products in category -->
+
+
+    </div>
+</div>

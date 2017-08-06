@@ -1,0 +1,73 @@
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<style>
+.openBtn {
+     background:none!important;
+     color:inherit;
+     border:none; 
+     padding:0!important;
+     font: inherit;
+     /*border is optional*/
+     cursor: pointer;
+}
+    
+.openBtn:hover {
+         border-bottom:1px solid #444; 
+}
+    
+tr:hover {
+    background-color: azure;
+}
+
+</style>
+
+
+<div ng-controller="searchCtrl as searchCtrl">
+    <input id="tb_search" type="text" ng-model="strSearch">
+    <button ng-click="searchCtrl.searchInDB(strSearch)">Search</button>
+    <table id="cart_tbl" class="table">
+
+        <tr ng-repeat="product in searchCtrl.relevantProdcuts">
+            <td>
+               <h3>
+                {{product.name}}
+               </h3>
+            </td>
+            <td><img src={{product.image}} class="cartProductImage"></td>
+            <td>
+                 <h3>
+                     {{product.price}}
+                 </h3>
+            </td>
+            <td>
+                <select ng-init="quantity = 1" ng-model="quantity" ng-options="values for values in [1,2,3,4,5]"></select>
+            </td>
+            <td>
+                <button ng-click="searchCtrl.cartService.addToCart(product, quantity)" class="buyBtn" >buy</button>
+            </td>
+        </tr>
+    </table>
+   <!-- <h1 ng-repeat="product in searchCtrl.relevantProdcuts">
+        {{product.productName}} {{product.price}}
+        <!-- <a href="" ng-click="searchCtrl.selectItem(product)">link</a>
+        <button ng-click="searchCtrl.selectItem(product)" onclick="document.getElementById('id01').style.display='block';">Open</button> -->
+    </h1>
+    
+    
+  <!-- modal -->    
+  <div id="id01" class="w3-modal">
+    <div class="w3-modal-content" style="padding: 40px">
+      <div class="w3-container">
+        <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+        <h3>{{searchCtrl.selectedItem.productName}}</h3>
+        <h4>price: {{searchCtrl.selectedItem.price}}</h4>
+        <h5>Description: {{searchCtrl.selectedItem.description}}</h5>
+        <div style="display: inline;">
+            <label>quantity: </label>
+            <select ng-init="quantity = 1" ng-model="quantity" ng-options="values for values in [1,2,3,4,5]" />
+        </div> <br/> <br />
+        <button ng-disabled="!searchCtrl.userService.isLoggedIn" ng-click="searchCtrl.addToCart(quantity)">Add to Cart</button> <br /> <br/>
+        <img src="{{searchCtrl.selectedItem.picturePath}}">
+      </div>
+    </div>
+  </div>
+</div>

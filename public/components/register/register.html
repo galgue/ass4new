@@ -1,0 +1,107 @@
+
+<div class="container" ng-controller="registerCtrl as registerCtrl">
+
+    <!-- create our form -->
+    <form name="userForm" ng-submit="registerCtrl.submitForm(userForm.$valid)" novalidate>
+
+        <!-- username field -->
+        <div class="form-group">
+            <label>Username</label>
+            <input type="text" name="username" class="form-control" ng-model="registerCtrl.user.username" 
+            ng-minlength="3" ng-maxlength="8"
+            ng-pattern="/^[a-zA-Z]*$/" 
+            required>
+
+            <!-- ngMessages for username goes here -->
+            <div class="help-block ngMessageClass" ng-messages="userForm.username.$error" ng-if="userForm.username.$touched || userForm.$submitted">
+                <p ng-message="minlength">Your username is too short.</p>
+                <p ng-message="maxlength">Your username is too long.</p>
+                <p ng-message="required">Username is required.</p>
+                <p ng-message="pattern">Username is not in correct pattern. Only letters please.</p>
+            </div>
+        </div>
+        
+        <!-- password field -->
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" name="password" class="form-control" ng-model="registerCtrl.user.password" 
+            ng-minlength="5" 
+            ng-maxlength="10" 
+            ng-pattern='/^[a-zA-Z0-9]*$/';
+            required>
+
+            <!-- ngMessages for password goes here -->
+            <div class="help-block ngMessageClass" ng-messages="userForm.password.$error" ng-if="userForm.password.$touched || userForm.$submitted">
+                <p ng-message="minlength">Your password is too short.</p>
+                <p ng-message="maxlength">Your password is too long.</p>
+                <p ng-message="required">Password is required.</p>
+                <p ng-message="pattern">Password is not in correct pattern. Only letters and numbers please.</p>
+            </div>
+        </div>
+        
+        <!-- security question field -->
+        <div class="form-group">
+            <div ng-hide="registerCtrl.qA.length==5">
+                <label>Please write security question</label>
+                <input type="text" class="form-control" ng-model="registerCtrl.question" name="cat1"></input>
+                <lable>answer:</lable>
+                <input type="text" class="form-control" name="sequrityQuestion" ng-model="registerCtrl.answer" ng-disabled="registerCtrl.question.length==0">
+                <input type="button" value="Add Question" ng-click="registerCtrl.AddQuestion()"
+                       ng-disabled="(registerCtrl.answer.length==0 || registerCtrl.question.length==0)">
+                <br />
+            </div>
+            <div ng-hide="registerCtrl.qA.length==0">
+                <label>Q&A:</label>
+                <table>
+                    <tr ng-repeat="qa in registerCtrl.qA">
+                        <td>{{qa.question}}</td>
+                        <td>{{'?    -  '}}</td>
+                        <td>{{qa.answer}}</td>
+                        <td><input type="button" value="X" ng-click="registerCtrl.RemoveQuestion(qa)"></td>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+
+        <!-- country -->
+        <div class="form-group">
+            <label>Choose country:</label>
+            <select ng-model="registerCtrl.user.countryid" ng-options='country.Name for country in registerCtrl.countries'
+                name="country" 
+                required></select>
+
+            <!-- ngMessages for countrys goes here -->
+            <div class="help-block ngMessageClass" ng-messages="userForm.country.$error" ng-if="userForm.$submitted" >
+                <p ng-message="required">Country is required.</p>
+            </div>
+        </div>
+
+        <!-- favorite category1 -->
+        <div class="form-group">
+            <div ng-hide="registerCtrl.categories.length==0">
+                <label>Choose category:</label>
+                <select ng-options='category as category.name for category in registerCtrl.categories'
+                ng-model="registerCtrl.chosenCat"></select>
+                <input type="button" value="Add Category" ng-click="registerCtrl.AddCat()"
+                       ng-disabled="(registerCtrl.chosenCat==null)">
+            </div>
+            <div ng-hide="registerCtrl.favCat.length==0">
+                <label>Favorite Categories:</label>
+                <table>
+                    <tr ng-repeat="cc in registerCtrl.favCat">
+                        <td>{{cc.name}}</td>
+                        <td><input type="button" value="X" ng-click="registerCtrl.RemoveCat(cc)"></td>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+
+        
+        <div class="form-group">
+            <input type="submit" class="btn btn-danger" value="Submit">
+        </div>
+
+    </form>
+</div>

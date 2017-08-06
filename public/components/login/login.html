@@ -1,0 +1,13 @@
+<div ng-controller="loginController as loginController">
+    <form name="loginForm" ng-submit="loginController.login(loginForm.$valid)" novalidate>
+        <h2>login</h2>
+        <h2>Username:</h2>
+        <input type="text" ng-model="loginController.user.username">
+        <h2>Password:</h2>
+        <input type="password" ng-model="loginController.user.password">
+        <br />
+        <input type="submit"
+                   value="Login"
+                   ng-disabled="loginForm.$invalid">
+    </form>
+</div>

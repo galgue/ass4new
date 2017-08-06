@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <title>Store</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- Custom CSS -->
+    <link href="css/shop-homepage.css" rel="stylesheet">
+    <!-- index products -->
+    <link href="css/indexProducts.css" rel="stylesheet">
+    <!z!-- jQuery Ui effects for search -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+    
+</head>
+<body>
+    <div ng-controller="mainCtrl as mainCtrl">
+        
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="background-color:#f7ecb5">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a style="background-color: black" class="navbar-brand" href="#">ALBUMHOLIC</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="#/">Home</a>
+                    </li>
+                    <li>
+                        <a href="#/categories">categories
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#/search">Search
+                        <span class="glyphicon glyphicon-search"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#/login" ng-hide="mainCtrl.userService.isLoggedIn">Login</a>
+                    </li>
+                    <li>
+                        <a href="#/register" ng-hide="mainCtrl.userService.isLoggedIn">Register</a>
+                    </li>
+                    <li>
+                        <a href="#/about">About</a>
+                    </li>
+                    <li ng-hide="mainCtrl.userService.isLoggedIn">
+                        <a style="background-color: black">hi guest</a>
+                    </li>
+
+                    <li ng-show="mainCtrl.userService.isLoggedIn">
+                        <a href="#/cart" class="popper" data-popbox="pop1">
+                        <span class="glyphicon glyphicon-shopping-cart"></span>    
+                        ({{mainCtrl.cartService.getCartLength()}})</a>
+                    </li>
+                    <li ng-show="mainCtrl.userService.isLoggedIn">
+                       <a href="#" ng-click="mainCtrl.userService.logout()">Logout</a>
+                    </li>
+                    <li ng-show="mainCtrl.userService.isLoggedIn">
+                        <a style="background-color: black">hi {{mainCtrl.userService.userName}}</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+    
+    <!-- Page Content -->
+    <div class="container-flouid" style="width:90%; margin-left:20px;">
+        <ng-view> </ng-view>
+    </div>
+    </div> <!-- div for maiCtrl -->
+    
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!--angularJS 1.6 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.js"></script>
+    <!-- ng route -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-route.js"></script>
+    <!-- angular cookies -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.0/angular-cookies.js"></script>
+    <!-- Angular ng-messages for registertion -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-messages/1.6.1/angular-messages.js"></script>
+    <!-- angular local storage -->
+    <script src="js/angular-local-storage.js"></script>
+    <!-- socket.io -->
+    <script src="/socket.io/socket.io.js"></script>
+    <!-- app.js init -->
+    <script src="app.js"></script>
+    <!-- service for products list -->
+    <script src="components/productsIndex/productsListService.js"></script>
+    <!-- contoller for items -->
+    <script src="components/productsIndex/productsListCtrl.js"></script>
+    <!-- service for user login -->
+    <script src="components/login/userService.js"></script>
+    <!-- main ctrl -->
+    <script src="components/mainCtrl.js"></script>
+    <!-- conroller for login -->
+    <script src="components/login/loginCtrl.js"></script>
+    <!-- service for cart -->
+    <script src="components/cart/CartService.js"></script>
+    <!-- controller for cart -->
+    <script src="components/cart/CartCtrl.js"></script>
+    <!-- script for cart popup -->
+    <script src="components/cart/popupJS.js"></script>
+    <!-- registration ctrl -->
+    <script src="components/register/resgisterCtrl.js"></script>
+    
+    <!-- jquery-ui for search -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!-- search ctrl-->
+    <script src="components/search/searchCtrl.js"></script>
+
+</body>    
+</html>
